@@ -2,6 +2,8 @@ import os
 import pandas
 from src.data import Data
 from sklearn.model_selection import train_test_split
+from PIL import Image
+import shutil
 
 data=Data()
 original_dir_list=os.listdir(data.ORIGINAL_DIR)
@@ -20,15 +22,30 @@ for i in range(len(original_dir_list)):
     if not os.path.exists(train_dir):
         os.mkdir(train_dir)
     else:
-        os.removedirs(train_dir)
+        shutil.rmtree(train_dir,ignore_errors=True)
         os.mkdir(train_dir)
     if not os.path.exists(test_dir):
         os.mkdir(test_dir)
     else:
-        os.removedirs(test_dir)
+        shutil.rmtree(test_dir,ignore_errors=True)
         os.mkdir(test_dir)
 
-    
+    for item in train:
+        image_path=os.path.join(os.path.join(data.ORIGINAL_DIR,original_dir_list[i]),item[0])
+        image=Image.open(image_path)
+        box=[int(item[3]),int(item[4]),int(item[5]),int(item[6])]
+        image = image.crop(box)
+        save_path=os.path.join(train_dir,item[0])
+        image.save(save_path)
+    for item in test:
+        image_path=os.path.join(os.path.join(data.ORIGINAL_DIR,original_dir_list[i]),item[0])
+        image=Image.open(image_path)
+        box=[int(item[3]),int(item[4]),int(item[5]),int(item[6])]
+        image = image.crop(box)
+        save_path=os.path.join(test_dir,item[0])
+        image.save(save_path)
+
+
 
 
 

@@ -1,5 +1,5 @@
 import os
-import pandas as pd
+from skimage import io
 
 
 class Data:
@@ -18,3 +18,17 @@ class Data:
         self.ORIGINAL_DIR = os.path.join(self.DATA_DIR, 'original')
         self.TRAIN_DIR = os.path.join(self.DATA_DIR, 'train')
         self.TEST_DIR = os.path.join(self.DATA_DIR, 'test')
+
+    def get_data(self,set_path):
+        dir_list=os.listdir(set_path)
+        res=[]
+        output=[]
+        for i in range(len(dir_list)):
+            label=int(dir_list[i])
+            path=os.path.join(self.TRAIN_DIR, dir_list[i])
+            for imagePath in os.listdir(path):
+                img=io.imread(os.path.join(path, imagePath))
+                # print(img.shape)
+                res.append(img)
+                output.append(label)
+        return res,output

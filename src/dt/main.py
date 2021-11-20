@@ -9,7 +9,7 @@ def main():
     x_test, y_test = data.get_data(data.TEST_DIR)
 
     classifier = tree.DecisionTreeClassifier()
-    classifier.fit(x_train, y_train)
+    classifier.fit(x_train,y_train)
     print(classifier.score(x_test, y_test))
 
 

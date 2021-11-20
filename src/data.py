@@ -1,6 +1,6 @@
 import os
-from skimage import io
-
+import numpy
+from skimage import io,feature, transform
 
 class Data:
     BASE_DIR = ""
@@ -27,8 +27,14 @@ class Data:
             label=int(dir_list[i])
             path=os.path.join(self.TRAIN_DIR, dir_list[i])
             for imagePath in os.listdir(path):
-                img=io.imread(os.path.join(path, imagePath))
-                # print(img.shape)
-                res.append(img)
+                img=io.imread(os.path.join(path, imagePath),as_gray=True)
+                img=transform.resize(img,(32,32))
+                edges=feature.canny(img,sigma=0.6)
+                res.append(edges)
                 output.append(label)
+        res=numpy.array(res)
+        num, nx, ny = res.shape
+        res=res.reshape((num,nx*ny))
+        print(res.shape)
+        output=numpy.array(output)
         return res,output

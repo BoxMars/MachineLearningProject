@@ -22,21 +22,23 @@ class Data:
 
     def get_data(self, set_path):
         dir_list = os.listdir(set_path)
+        print(set_path)
+        size=32
         res = []
         output = []
+        # for i in range(1):
         for i in range(len(dir_list)):
             label = int(dir_list[i])
-            print(label)
-            path = os.path.join(self.TRAIN_DIR, dir_list[i])
+            path = os.path.join(set_path, dir_list[i])
             for imagePath in os.listdir(path):
                 img = io.imread(os.path.join(path, imagePath), as_gray=True)
-                img = transform.resize(img, (32, 32))
+                img = transform.resize(img, (size, size))
                 edges = feature.canny(img, sigma=0.6)
                 res.append(edges)
                 output.append(label)
+            print(label)
         res = numpy.array(res)
         num, nx, ny = res.shape
         res = res.reshape((num, nx * ny))
-        print(res.shape)
         output = numpy.array(output)
         return res, output

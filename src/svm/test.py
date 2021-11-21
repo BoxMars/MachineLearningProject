@@ -8,12 +8,12 @@ def main():
     data = Data()
     x_train, y_train = data.get_data(data.TRAIN_DIR)
     x_test, y_test = data.get_data(data.TEST_DIR)
-    pca = decomposition.IncrementalPCA(n_components=256)
+    pca = decomposition.IncrementalPCA()
     # pca.fit(x_train,y_train)
     # trainW = pca.transform(x_train)  # fit the training set
     trainW = pca.fit_transform(x_train)  # fit the training set
     svmclf = svm.SVC(kernel='rbf')
-    scores = cross_val_score(svmclf, trainW, y_train, cv=3)
+    scores = cross_val_score(svmclf, trainW, y_train, cv=3).mean()
     print("cross valid kernel pca + svm =", scores)
 
 

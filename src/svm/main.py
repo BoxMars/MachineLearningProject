@@ -14,4 +14,4 @@ if __name__ == "__main__":
     start = time.time()
     main()
     end = time.time()
-    print('Running time: %s Seconds' % (end - start))
+    print('Running time: %s Seczonds' % (end - start))

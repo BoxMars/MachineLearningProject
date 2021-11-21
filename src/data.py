@@ -42,6 +42,7 @@ class Data:
                 img = io.imread(os.path.join(path, imagePath), as_gray=True)
                 img = transform.resize(img, (size, size))
                 # edges = feature.canny(img, sigma=0.6)
+                # res.append(edges)
                 res.append(img)
                 output.append(label)
             # print("\n")

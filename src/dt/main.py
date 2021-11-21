@@ -17,7 +17,7 @@ def main():
     rfc.fit(x_train, y_train)
     print(bcolors.OKCYAN + "Finish training" + bcolors.ENDC)
     print(rfc.score(x_test, y_test))
-
+    print(123)
 
 if __name__ == "__main__":
     start = time.time()

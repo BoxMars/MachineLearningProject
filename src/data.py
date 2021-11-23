@@ -4,7 +4,6 @@ import time
 
 import numpy
 from skimage import io, feature, transform
-from src.utils.colors import bcolors
 
 class Data:
     BASE_DIR = ""
@@ -26,7 +25,7 @@ class Data:
 
     def get_data(self, set_path):
         dir_list = os.listdir(set_path)
-        print(bcolors.OKBLUE+"Load data from "+ set_path+bcolors.ENDC)
+        print("Load data from "+ set_path)
         size=32
         res = []
         output = []
@@ -37,7 +36,7 @@ class Data:
             path = os.path.join(set_path, dir_list[i])
             for imagePath in os.listdir(path):
                 print("\r", end="")
-                print(bcolors.OKGREEN + '...............' + path + bcolors.ENDC, end="")
+                print('...............' + path, end="")
                 sys.stdout.flush()
                 img = io.imread(os.path.join(path, imagePath), as_gray=True)
                 img = transform.resize(img, (size, size))
@@ -46,7 +45,7 @@ class Data:
                 res.append(img)
                 output.append(label)
             # print("\n")
-        print(bcolors.OKBLUE+"\nData loading finish"+bcolors.ENDC)
+        print("\nData loading finish")
 
         res = numpy.array(res)
         num, nx, ny = res.shape

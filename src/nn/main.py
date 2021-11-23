@@ -1,13 +1,15 @@
-from sklearn.model_selection import ShuffleSplit, cross_val_score
-from sklearn.svm import SVC
-from src.data import Data
 import time
+
+from sklearn import neural_network
+from sklearn.model_selection import ShuffleSplit, cross_val_score
+
+from src.data import Data
 
 
 def train_test(x, y):
-    clf = SVC(verbose=1)
+    nn = neural_network.MLPClassifier(verbose=1)
     shuffle = ShuffleSplit(train_size=.7, test_size=.2, n_splits=5)
-    scores = cross_val_score(clf, x, y, cv=shuffle)
+    scores = cross_val_score(nn, x, y, cv=shuffle)
     print("Cross validation scores:{}".format(scores))
     print("Mean cross validation score:{:2f}".format(scores.mean()))
     print("Finish training")

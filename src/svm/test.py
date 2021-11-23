@@ -1,5 +1,5 @@
 from sklearn import decomposition, svm
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_score, ShuffleSplit
 from src.data import Data
 import time
 
@@ -7,15 +7,13 @@ import time
 def main():
     data = Data()
     x_train, y_train = data.get_data(data.CROP_DIR)
-    # x_test, y_test = data.get_data(data.TEST_DIR)
-    pca = decomposition.IncrementalPCA()
-    # pca.fit(x_train,y_train)
-    # trainW = pca.transform(x_train)  # fit the training set
-    trainW = pca.fit_transform(x_train)  # fit the training set
+    # pca = decomposition.IncrementalPCA()
+    # trainW = pca.fit_transform(x_train)  # fit the training set
     # pca2=decomposition.IncrementalPCA()
     # trainW=pca2.fit_transform(trainW)
-    svmclf = svm.SVC(kernel='rbf')
-    scores = cross_val_score(svmclf, trainW, y_train, cv=3)
+    shufspl = ShuffleSplit(train_size=.7, test_size=.2, n_splits=5)
+    svmclf = svm.SVC(kernel='rbf',verbose=1)
+    scores = cross_val_score(svmclf, x_train, y_train, cv=shufspl)
     print("cross valid kernel pca + svm =", scores)
 
 

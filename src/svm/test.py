@@ -7,13 +7,13 @@ import time
 def main():
     data = Data()
     x_train, y_train = data.get_data(data.CROP_DIR)
-    # pca = decomposition.IncrementalPCA()
-    # trainW = pca.fit_transform(x_train)  # fit the training set
+    pca = decomposition.IncrementalPCA()
+    trainW = pca.fit_transform(x_train)  # fit the training set
     # pca2=decomposition.IncrementalPCA()
     # trainW=pca2.fit_transform(trainW)
     shufspl = ShuffleSplit(train_size=.7, test_size=.2, n_splits=5)
     svmclf = svm.SVC(kernel='rbf',verbose=1)
-    scores = cross_val_score(svmclf, x_train, y_train, cv=shufspl)
+    scores = cross_val_score(svmclf, trainW, y_train, cv=shufspl)
     print("cross valid kernel pca + svm =", scores)
 
 

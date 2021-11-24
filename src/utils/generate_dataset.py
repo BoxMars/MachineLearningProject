@@ -42,11 +42,11 @@ def main():
         for item in test:
             image_path = os.path.join(os.path.join(data.ORIGINAL_DIR, original_dir_list[i]), item[0])
             image = Image.open(image_path)
-            box = [int(item[3]), int(item[4]), int(item[5]), int(item[6])]
-            image = image.crop(box)
+            # box = [int(item[3]), int(item[4]), int(item[5]), int(item[6])]
+            # image = image.crop(box)
             save_path = os.path.join(test_dir, item[0])
             image.save(save_path)
-
+ 
 
 def crop_image():
     data = Data()
@@ -71,8 +71,8 @@ def crop_image():
         for item in crop_list:
             image_path = os.path.join(os.path.join(data.ORIGINAL_DIR, original_dir_list[i]), item[0])
             image = Image.open(image_path)
-            box = [int(item[3]), int(item[4]), int(item[5]), int(item[6])]
-            image = image.crop(box)
+            # box = [int(item[3]), int(item[4]), int(item[5]), int(item[6])]
+            # image = image.crop(box)
             save_path = os.path.join(crop_dir, item[0])
             image.save(save_path)
 

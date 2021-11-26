@@ -55,5 +55,6 @@ class Data:
         output = numpy.array(output)
         numpy.random.seed(100)
         numpy.random.shuffle(res)
+        numpy.random.seed(100)
         numpy.random.shuffle(output)
         return res, output

@@ -12,11 +12,11 @@ from src.data import Data
 data = Data()
 step=10
 min_estimators = 1
-max_estimators = 50
+max_estimators = 150
 train_scores = []
 test_scores = []
-x,y=data.get_data(data.TRAIN_DIR)
-X_test, y_test=data.get_data(data.TEST_DIR)
+x,y=data.get_data(data.CROP_DIR)
+
 clf = SVC(C=1.0, verbose=1,decision_function_shape='ovr')
 for i in range(min_estimators, max_estimators + 1, step):
         clf.set_params(C=i)

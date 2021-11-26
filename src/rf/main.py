@@ -7,19 +7,19 @@ from sklearn.metrics import classification_report
 from sklearn.model_selection import cross_val_score, ShuffleSplit
 from src.data import Data
 
-
+data = Data()
+x, y = data.get_data(data.CROP_DIR)
 def train_test(x, y):
     print("Start training")
     rfc = RandomForestClassifier(n_estimators=150, n_jobs=-1, random_state=90, verbose=1)
-    shuffle = ShuffleSplit(train_size=.7, test_size=.2, n_splits=8)
-    scores = cross_val_score(rfc, x, y, cv=shuffle)
+    #shuffle = ShuffleSplit(train_size=.7, test_size=.2, n_splits=8)
+    scores = cross_val_score(rfc, x, y, cv=3)
     print("Cross validation scores:{}".format(scores))
     print("Mean cross validation score:{:2f}".format(scores.mean()))
     print("Finish training")
 
 def test():
-    data=Data()
-    x,y=data.get_data(data.TRAIN_DIR)
+
     x_test_crop,y_test_crop=data.get_data(data.TEST_CROP_DIR)
     print("Start training")
     rfc = RandomForestClassifier(verbose=1,n_jobs=-1)
@@ -34,5 +34,6 @@ def test():
 if __name__ == "__main__":
     start = time.time()
     test()
+    train_test(x, y)
     end = time.time()
     print('Running time: %s Seconds' % (end - start))

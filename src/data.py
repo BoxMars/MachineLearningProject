@@ -47,10 +47,13 @@ class Data:
                 res.append(img)
                 output.append(label)
             # print("\n")
-        print("\nData loading finish")
+        print("Data loading finish")
 
         res = numpy.array(res)
         num, nx, ny = res.shape
         res = res.reshape((num, nx * ny))
         output = numpy.array(output)
+        numpy.random.seed(100)
+        numpy.random.shuffle(res)
+        numpy.random.shuffle(output)
         return res, output

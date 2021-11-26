@@ -5,7 +5,7 @@ import time
 
 
 def train_test(x, y):
-    clf = SVC(verbose=1)
+    clf = SVC(C=1.0, verbose=1,decision_function_shape='ovr')
     shuffle = ShuffleSplit(train_size=.7, test_size=.2, n_splits=5)
     scores = cross_val_score(clf, x, y, cv=shuffle)
     print("Cross validation scores:{}".format(scores))

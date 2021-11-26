@@ -12,6 +12,7 @@ class Data:
     TRAIN_DIR = ""
     TEST_DIR = ""
     CROP_DIR=""
+    TEST_CROP_DIR=""
     def __init__(self):
         self.BASE_DIR = os.path.dirname(
             os.path.dirname(
@@ -22,6 +23,7 @@ class Data:
         self.TRAIN_DIR = os.path.join(self.DATA_DIR, 'train')
         self.TEST_DIR = os.path.join(self.DATA_DIR, 'test')
         self.CROP_DIR=os.path.join(self.DATA_DIR,'crop')
+        self.TEST_CROP_DIR = os.path.join(self.DATA_DIR, 'test_crop')
 
     def get_data(self, set_path):
         dir_list = os.listdir(set_path)
@@ -40,9 +42,9 @@ class Data:
                 sys.stdout.flush()
                 img = io.imread(os.path.join(path, imagePath), as_gray=True)
                 img = transform.resize(img, (size, size))
-                edges = feature.canny(img, sigma=0.6)
-                res.append(edges)
-                # res.append(img)
+                # edges = feature.canny(img, sigma=0.6)
+                # res.append(edges)
+                res.append(img)
                 output.append(label)
             # print("\n")
         print("\nData loading finish")

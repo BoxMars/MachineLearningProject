@@ -7,17 +7,14 @@ from sklearn.model_selection import ShuffleSplit, cross_val_score
 from src.data import Data
 
 
-
-data = Data()
-x, y = data.get_data(data.CROP_DIR)
-
 def train_test(x, y):
     nn = neural_network.MLPClassifier(verbose=1)
-    #shuffle = ShuffleSplit(train_size=.7, test_size=.2, n_splits=5)
+    # shuffle = ShuffleSplit(train_size=.7, test_size=.2, n_splits=5)
     scores = cross_val_score(nn, x, y, cv=3)
     print("Cross validation scores:{}".format(scores))
     print("Mean cross validation score:{:2f}".format(scores.mean()))
     print("Finish training")
+
 
 # def test():
 #
@@ -32,15 +29,18 @@ def train_test(x, y):
 #     print(classification_report(y_test_crop, y_pred_crop, target_names=target_names))
 
 def classification_report_with_accuracy_score(y_true, y_pred):
-    print(classification_report(y_true, y_pred)) # print classification report
-    return accuracy_score(y_true, y_pred) # return accuracy score
-rfc = neural_network.MLPClassifier(verbose=1)
-nested_score = cross_val_score(rfc, X=x, y=y, cv=3, scoring=make_scorer(classification_report_with_accuracy_score))
-print(nested_score)
+    print(classification_report(y_true, y_pred))  # print classification report
+    return accuracy_score(y_true, y_pred)  # return accuracy score
+
 
 if __name__ == "__main__":
     start = time.time()
-    #test()
-    train_test(x, y)
+    # test()
+    data = Data()
+    x, y = data.get_data(data.CROP_DIR)
+    rfc = neural_network.MLPClassifier(verbose=1)
+    nested_score = cross_val_score(rfc, X=x, y=y, cv=3, scoring=make_scorer(classification_report_with_accuracy_score))
+    print(nested_score)
+    # train_test(x, y)
     end = time.time()
     print('Running time: %s Seconds' % (end - start))
